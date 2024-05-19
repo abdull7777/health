@@ -263,39 +263,93 @@ class _AlertsState extends State<Alerts> {
                                           child: MaterialButton(
 
                                               onPressed: () {
-                                                showDialog(context: context, builder: (context) {
-                                                  return AlertDialog(
-                                                    key: Key(
-                                                      medicine[index]["medicineid"]
-                                                          .toString(),
-                                                    ),
-                                                    title:
-                                                    Text("are you sure"),
-                                                    actions: [
-                                                      ElevatedButton(
-                                                          onPressed: () {
-                                                            DeleteFromDB(medicine[
-                                                            index][
-                                                            "medicineid"]);
-
-                                                            Navigator.of(
-                                                                context)
-                                                                .pop();
-
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return SimpleDialog(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(30),
+                                                        side: BorderSide(
+                                                            color: colorborder, width: 8),
+                                                      ),
+                                                      insetPadding: const EdgeInsets.all(
+                                                        20,
+                                                      ),
+                                                      contentPadding: const EdgeInsets.symmetric(
+                                                          horizontal: 30, vertical: 18),
+                                                      backgroundColor: maincolor,
+                                                      children: [
+                                                        ...List.generate(
+                                                          cubit.inputFieldNameAppointController
+                                                              .length,
+                                                              (index) {
+                                                            return Padding(
+                                                              padding: const EdgeInsets.all(12.0),
+                                                              child: inputTextAppointment(
+                                                                  text: cubit
+                                                                      .inputFieldNameAlert[index],
+                                                                  controller: cubit
+                                                                      .inputFieldNameAppointController[
+                                                                  index],
+                                                                  textvalidat:
+                                                                  cubit.inputFieldAlertAlert[
+                                                                  index],
+                                                                  type: cubit
+                                                                      .inputFieldInputTypeAlert[
+                                                                  index]),
+                                                            );
                                                           },
-                                                          child:
-                                                          Text("delete")),
-                                                      ElevatedButton(
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                context)
-                                                                .pop();
-                                                          },
-                                                          child:
-                                                          Text("exit")),
-                                                    ],
-                                                  );
-
+                                                        ),
+                                                        Padding(
+                                                          padding: const EdgeInsets.symmetric(
+                                                              vertical: 30, horizontal: 24.0),
+                                                          child: Container(
+                                                              width: 120,
+                                                              height: 44,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                  BorderRadius.circular(30.0),
+                                                                  color: maincolor,
+                                                                  border: Border.all(
+                                                                    color: Colors.white,
+                                                                    width: 3,
+                                                                  )),
+                                                              child: MaterialButton(
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          30.0)),
+                                                                  color: colorborder,
+                                                                  onPressed: () {
+                                                                    print(cubit
+                                                                        .inputFieldNameAppointController[0]);
+                                                                    insertToDatabaseMedicine(
+                                                                      cubit
+                                                                          .inputFieldNameAppointController[
+                                                                      0]
+                                                                          .text,
+                                                                      cubit
+                                                                          .inputFieldNameAppointController[
+                                                                      1]
+                                                                          .text,
+                                                                      cubit
+                                                                          .inputFieldNameAppointController[
+                                                                      2]
+                                                                          .text,
+                                                                      cubit
+                                                                          .inputFieldNameAppointController[
+                                                                      3]
+                                                                          .text,
+                                                                    );
+                                                                    Navigator.of(context).pop();
+                                                                  },
+                                                                  child: const Text('اضافة',
+                                                                      style: TextStyle(
+                                                                          color: Colors.white,
+                                                                          fontSize: 24)))),
+                                                        )
+                                                      ],
+                                                    );
                                                 } ,);
                                               },
                                               child: const Text('تعديل',
